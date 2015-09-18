@@ -431,4 +431,11 @@ noremap <silent> <leader>mj <C-W>J
 noremap <silent> <leader>ml <C-W>L
 "}}}
 
+" source local vimrc if it exists to allow local overrides
+try
+    source ~/.vimrc.local
+catch
+    " No file? Don't worry about it
+endtry
+
 " vim: fdm=marker
