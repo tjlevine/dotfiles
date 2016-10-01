@@ -97,7 +97,12 @@ else
     PS1='\[$(tput setaf 4)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 5)\]\h:\[$(tput setaf 3)\]\w\[$(tput bold)\]\[$(tput sgr0)\] \$ '
 fi
 
-# enable vim style editing
+# enable git completion
+if [ -f ~/bin/git-completion.sh ]; then
+    source ~/bin/git-completion.sh
+fi
+
+# enable vim style command line editing
 set -o vi
 
 # Alias definitions.
