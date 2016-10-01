@@ -1,0 +1,15 @@
+"hg6825
+
+loadplugins '\.(js|penta)$'
+group user
+map -count -modes=n j -builtin <count>5j
+map -count -modes=n k -builtin <count>5k
+set guioptions=bCrsn
+set titlestring=""
+
+command laymangui -nargs=0 :set go=brsmMT
+command regulargui -nargs=0 :set go=bCrsn
+
+map ,<SPACE> <C-^>
+
+" vim: set ft=pentadactyl.vim :

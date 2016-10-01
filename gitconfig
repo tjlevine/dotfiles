@@ -1,0 +1,25 @@
+[alias]
+	unstage = reset HEAD
+	last = cat-file commit HEAD
+	lol = log --oneline --decorate --graph
+	commit = commit -F-
+	st = status -sb --untracked-files=normal
+	update = add -u
+[user]
+	email = email.tlevine@gmail.com
+	name = Tyler Levine
+[github]
+	user = tjlevine
+	token = 94e69d5ff29d475a7e996fe60f0f89bb
+[color]
+	ui = true
+[core]
+    excludesfile = ~/.gitignore
+[dropbox]
+    reposuffix = .git
+	remotename = dropbox
+	repodir = ~/Dropbox/git
+[push]
+	default = simple
+[commit]
+	verbose = true
