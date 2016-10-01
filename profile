@@ -17,18 +17,11 @@ export LC_COLLATE="en_US.UTF-8"
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+        . "$HOME/.bashrc"
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
+# add user's private bin to PATH if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-
-# add android sdk dev tools to PATH
-if [ -d "$HOME/.android-sdk" ] ; then
-	PATH="$HOME/.android-sdk/platform-tools:$PATH"
-	PATH="$HOME/.android-sdk/tools:$PATH"
-fi
-
