@@ -1,0 +1,29 @@
+# alias to tail the syslog to watch my wifi driver fail in real time
+alias t='tail -f /var/log/syslog'
+
+# alias to run defcon with correct mouse acceleration values
+alias defcon='SDL_MOUSE_RELATIVE=0 SDL_VIDEO_X11_MOUSEACCEL=6/1/0 /usr/local/games/defcon/defcon.bin.x86_64'
+
+# alias to JFLAP for cse105 so we can launch from cmd line easier
+alias jflap='java -jar ~/Dropbox/bin/JFLAP.jar'
+
+# push code to dropbox in three characters
+alias gpd='gps dropbox'
+
+# always use rlwrap when running the ocaml REPL
+alias ocaml='rlwrap ocaml'
+
+# override global g alias defined in .bash_aliases to fix ubuntu menu proxy error
+alias g='UBUNTU_MENUPROXY= gvim --remote-silent 2>/dev/null'
+
+# cs120 ssh alias
+alias cs120='ssh cs120whu@ieng9.ucsd.edu'
+
+# shortcut for the git-dropbox-init script I wrote
+alias gdi='git dropbox-init'
+
+# load aliases for cs130 pa6 to allow for local editing so I dont
+# have to do it every time I load a new shell
+[ -e "$HOME/src/cs130/pa6/.scala_aliases" ] && source "$HOME/src/cs130/pa6/.scala_aliases"
+
+# vim: ft=sh

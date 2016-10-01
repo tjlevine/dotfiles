@@ -1,0 +1,16 @@
+export PATH="/usr/local/bin:$PATH"
+
+export EDITOR="mvim -v"
+
+if which thefuck > /dev/null; then eval "$(thefuck --alias)"; fi
+
+# add virtualenv env variables
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/src
+
+[ -e "/usr/local/bin/virtualenvwrapper.sh" ] && source "/usr/local/bin/virtualenvwrapper.sh"
+[ -e "/usr/local/opt/autoenv/activate.sh" ] && source "/usr/local/opt/autoenv/activate.sh"
+[ -e "/Users/tylevine/.scm_breeze/scm_breeze.sh" ] && source "/Users/tylevine/.scm_breeze/scm_breeze.sh"
+
+# enable pyenv shims and autocompletion
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi

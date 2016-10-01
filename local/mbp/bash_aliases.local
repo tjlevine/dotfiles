@@ -1,0 +1,8 @@
+# fixphd() {
+#     echo hello $@
+#     phd $@ --color always | less -r
+# }
+# 
+# alias phd=fixphd
+alias vim="mvim -v"
+alias tmux="tmux -2"
