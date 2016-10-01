@@ -2,58 +2,76 @@
 " Tyler Levine
 
 """""""""""""""""""
-" General Options "
+" Startup Options "
 """""""""""""""""""
 "{{{
 if has("vim_starting")
     " vi compatibility... yeah right
-    set nocompatible
+    if &compatible
+        set nocompatible
+    endif
+
     set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
+""}}}
 
-call neobundle#begin()
+"""""""""""""""""""""
+" Neobundle Startup "
+"""""""""""""""""""""
+"{{{
+try
+    call neobundle#begin(expand('~/.vim/bundle'))
+    " Manage NeoBundle itself
+    NeoBundleFetch 'Shougo/neobundle.vim'
+catch /^Vim\%((\a\+)\)\=:E117/
+    " If NeoBundle is missing, define an installer for it
+    function! NeoBundleInstaller()
+        echom "Starting NeoBundle Installation"
+        let neobundlegit = 'https://github.com/Shougo/neobundle.vim'
+        let destination = expand('~/.vim/bundle/neobundle.vim')
+        call mkdir(destination, "p")
+        call system('git clone ' . neobundlegit . ' ' . destination)
+        echom "all done, restart vim"
+    endfunction
+    command! InstallNeoBundle call NeoBundleInstaller()
+endtry
+"}}}
 
-NeoBundleFetch "Shougo/neobundle.vim"
+"""""""""""""""""""""
+" Neobundle Plugins "
+"""""""""""""""""""""
+"{{{
+if exists("#neobundle")
+    NeoBundle "scrooloose/syntastic"
+    NeoBundle "tpope/vim-fugitive"
+    NeoBundle "Raimondi/delimitMate"
+    NeoBundle "bling/vim-airline"
+    NeoBundle "kien/ctrlp.vim"
+    " NeoBundle "Valloric/YouCompleteMe"
+    NeoBundle "Lokaltog/vim-easymotion"
+    " NeoBundle "edkolev/tmuxline.vim"
+    NeoBundle "vim-scripts/a.vim"
+    NeoBundle "SirVer/ultisnips"
+    NeoBundle "honza/vim-snippets"
+    NeoBundle 'vim-airline/vim-airline-themes'
 
-NeoBundle "scrooloose/syntastic"
-NeoBundle "tpope/vim-fugitive"
-NeoBundle "Raimondi/delimitMate"
-NeoBundle "bling/vim-airline"
-NeoBundle "kien/ctrlp.vim"
-NeoBundle "Valloric/YouCompleteMe"
-NeoBundle "Lokaltog/vim-easymotion"
-NeoBundle "edkolev/tmuxline.vim"
-NeoBundle "vim-scripts/a.vim"
-NeoBundle "SirVer/ultisnips"
-NeoBundle "honza/vim-snippets"
+    call neobundle#end()
 
-call neobundle#end()
+    " turn on filetype stuff *required by neobundle*
+    filetype on
+    filetype plugin indent on
+    syntax enable
 
-" turn on filetype stuff *required by neobundle*
-filetype on
-filetype plugin indent on
-
-NeoBundleCheck
-
-if !has("vim_starting")
-    " must have been sourced
-    call neobundle#call_hook("on_source")
+    NeoBundleCheck
 endif
+"}}}
 
-
-" start pathogen if it's here
-" runtime autoload/pathogen.vim
-"if exists("*pathogen#infect")
-"    call pathogen#infect()
-"    " load all help files from plugins. This isn't always necessary but they
-"    " do need to be regenerated for every new machine, and when installing new
-"    " plugins, so just do it on startup
-"    Helptags
-"endif
-
+"""""""""""""""""""
+" General Options "
+"""""""""""""""""""
+"{{{
 " vim-powerline also requires UTF-8 encoding, which is probably not a bad idea anyway
 set encoding=utf-8
-
 
 " a tab is 4 spaces by default please
 " also some other formatting options here
@@ -173,7 +191,7 @@ set synmaxcol=2048
 set directory=~/.vim/swap//,.,/var/tmp//,/tmp//
 set backupdir=~/.vim/backup/,.
 
-set guifont=Monaco\ for\ Powerline:h16
+set guifont=Sauce\ Code\ Powerline:h13
 
 " Ignore object files when doing autocompletion. Ctrl-P also respects this.
 set wildignore=*.o
@@ -187,17 +205,17 @@ set completeopt=menu,preview,longest
 " larger vim when running in gui mode, otherwise
 " use default of 80 cols by 20 lines when in command line
 if has("gui_running")
-    set lines=32 columns=110
+"     set lines=32 columns=110
 else
-    " configure for 256 color mode in terminal
+"     " configure for 256 color mode in terminal
     set t_Co=256
-
-"    if exists("+lines")
-"        set lines=20
-"    endif
-"    if exists("+columns")
-"        set columns=80
-"    endif
+"
+"     if exists("+lines")
+"         set lines=20
+"     endif
+"     if exists("+columns")
+"         set columns=80
+"     endif
 endif
 
 " this is a nice colorscheme
@@ -212,7 +230,7 @@ highlight Folded guibg=Black
 " Variable Definitions "
 """"""""""""""""""""""""
 "{{{
-" KNEEL BEFORE THE COMMA
+" Comma has always been, and will always be, my leader
 let mapleader = ","
 "}}}
 
@@ -220,8 +238,6 @@ let mapleader = ","
 " Plugin Configuration "
 """"""""""""""""""""""""
 "{{{
-" Disable insertion of placeholders when using lh-brackets
-" let b:usemarks=0
 
 " let airline use powerline fonts
 let g:airline_powerline_fonts = 1
@@ -231,6 +247,9 @@ let g:airline#extensions#syntastic#enabled = 1
 
 " use airline fugitive integration
 let g:airline#extensions#branch#enabled = 1
+
+" use molokai theme (requires airline-themes plugin)
+let g:airline_theme = 'molokai'
 
 " change the ctrlp map to ,fa
 let g:ctrlp_map = "<leader>fa"
@@ -263,6 +282,9 @@ let g:syntastic_java_javac_config_file_enabled = 1
 let g:syntastic_quiet_messages = {
             \ "file": '.*src/.*/parser.java$',
             \ }
+
+" enable enhanced longest match support
+let g:SuperTabLongestEnhanced = 1
 
 " easymotion remaps
 map  <Leader> <Plug>(easymotion-prefix)
@@ -297,7 +319,7 @@ function! g:UltiSnips_Complete()
     return ""
 endfunction
 
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+"au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-e>"
@@ -349,8 +371,7 @@ nnoremap <silent> <leader>n :lne<cr>
 nnoremap <silent> <leader>N :lp<cr>
 
 " trim white space
-nnoremap <silent> <leader>t :%s/\s\+$<cr><C-O>
-
+nnoremap <silent> <leader>t :%s/\t/    /g<cr>:%s/\s\+$<cr>
 "}}}
 
 """"""""""""""""
@@ -360,19 +381,14 @@ nnoremap <silent> <leader>t :%s/\s\+$<cr><C-O>
 if has("autocmd")
     " map F2 to a.vim source/header swap functionality on VimEnter
     autocmd VimEnter * if exists(":A") |
-                \ noremap <silent> <leader>a :A<CR>|
+                \ noremap <silent> <F2> :A<CR>|
     \ endif
 
-    " automatically set b:usemarks=0 for all new buffers in order to
-    " disable lh-brackets placeholder insertion when completing brackets
-    " autocmd BufWinEnter * let b:usemarks=0
-
     " prevent carpal tunnel from doing zR every damn time I open a file
-    autocmd BufWinEnter * normal zR
+    autocmd BufEnter * normal zR
 
-    " close omni-completion tip window automatically when no longer needed
-    autocmd InsertLeave  * if pumvisible() == 0 && bufname("%") != "[Command Line]"|pclose|endif
-
+    " auto wrap md and txt files
+    autocmd BufRead,BufNewFile *.md,*.txt setlocal textwidth=80
 endif
 "}}}
 
@@ -388,8 +404,7 @@ noremap <silent> <leader>o :only<cr>
 noremap <silent> <leader>v :vsp<cr>
 
 " new horizontal split
-" use capital S, lowercase s is used by easymotion
-noremap <silent> <leader>S :sp<cr>
+noremap <silent> <leader>s :sp<cr>
 
 " Move the cursor to the window left of the current one
 noremap <silent> <leader>h :wincmd h<cr>
@@ -431,11 +446,16 @@ noremap <silent> <leader>mj <C-W>J
 noremap <silent> <leader>ml <C-W>L
 "}}}
 
+""""""""""""""""
+" Local .vimrc "
+""""""""""""""""
+"{{{
 " source local vimrc if it exists to allow local overrides
 try
     source ~/.vimrc.local
 catch
     " No file? Don't worry about it
 endtry
+"}}}
 
 " vim: fdm=marker
