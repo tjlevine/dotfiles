@@ -6,41 +6,55 @@
 " General Options "
 """""""""""""""""""
 "{{{
-if has("vim_starting")
+
+"dein Scripts-----------------------------
+if &compatible
     " vi compatibility... yeah right
     set nocompatible
-    set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
-call neobundle#begin()
+" Required:
+set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
 
-NeoBundleFetch "Shougo/neobundle.vim"
+" Required:
+if dein#load_state('~/.vim/bundle')
+    call dein#begin('~/.vim/bundle')
 
-NeoBundle "scrooloose/syntastic"
-NeoBundle "tpope/vim-fugitive"
-NeoBundle "Raimondi/delimitMate"
-NeoBundle "bling/vim-airline"
-NeoBundle "kien/ctrlp.vim"
-" NeoBundle "Valloric/YouCompleteMe"
-NeoBundle "Lokaltog/vim-easymotion"
-NeoBundle "edkolev/tmuxline.vim"
-NeoBundle "vim-scripts/a.vim"
-" NeoBundle "SirVer/ultisnips"
-NeoBundle "honza/vim-snippets"
-" NeoBundle "oplatek/Conque-Shell"
+    " Let dein manage dein
+    " Required:
+    call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
 
-call neobundle#end()
+    " Add or remove your plugins here:
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('scrooloose/syntastic')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('Raimondi/delimitMate')
+    call dein#add('bling/vim-airline')
+    call dein#add('kien/ctrlp.vim')
+"   call dein#add('Valloric/YouCompleteMe')
+    call dein#add('Lokaltog/vim-easymotion')
+    call dein#add('edkolev/tmuxline.vim')
+    call dein#add('vim-scripts/a.vim')
+"   call dein#add('SirVer/ultisnips')
+    call dein#add('honza/vim-snippets')
+"   call dein#add('oplatek/Conque-Shell')
 
-" turn on filetype stuff *required by neobundle*
-filetype on
+    " Required:
+    call dein#end()
+    call dein#save_state()
+endif
+
+" Required:
 filetype plugin indent on
+syntax enable
 
-NeoBundleCheck
-
-if !has("vim_starting")
-    " must have been sourced
-    call neobundle#call_hook("on_source")
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+    call dein#install()
 endif
+
+"End dein Scripts-------------------------
 
 " vim-powerline also requires UTF-8 encoding, which is probably not a bad idea anyway
 set encoding=utf-8
@@ -196,9 +210,6 @@ colorscheme koehler
 
 " de-uglify folds
 highlight Folded guibg=Black
-
-" turn on syntax highlighting by default
-syntax on
 
 "}}}
 
