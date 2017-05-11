@@ -106,13 +106,40 @@ set -o vi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    source ~/.bash_aliases
 fi
 
 # load custom bash functions
 if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
+    source ~/.bash_functions
 fi
+
+if [ -f ~/src/bash-sensible/sensible.bash ]; then
+    source ~/src/bash-sensible/sensible.bash
+fi
+
+# source autoenv activation if it exists
+[ -e "/usr/local/opt/autoenv/activate.sh" ] && source "/usr/local/opt/autoenv/activate.sh"
 
 # source local bashrc if it exists
 [ -e "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"
+
+PATH="/Users/tylevine/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/tylevine/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/tylevine/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/tylevine/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/tylevine/perl5"; export PERL_MM_OPT;
+
+[ -e "$HOME/.virtualenvs" ] && export WORKON_HOME="$HOME/.virtualenvs"
+[ -e /usr/local/bin/virtualenvwrapper_lazy.sh ] && source /usr/local/bin/virtualenvwrapper_lazy.sh
+
+# require virtualenv for normal pip operations, use gpip alias for global operations
+export PIP_REQUIRE_VIRTUALENV=true
+gpip() {
+    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+
+gpip3() {
+    PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
+}
+

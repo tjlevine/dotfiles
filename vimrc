@@ -1,5 +1,6 @@
 " vim configuration file
 " Tyler Levine
+" Last updated: 5/10/17
 
 """""""""""""""""""
 " General Options "
@@ -20,12 +21,13 @@ NeoBundle "tpope/vim-fugitive"
 NeoBundle "Raimondi/delimitMate"
 NeoBundle "bling/vim-airline"
 NeoBundle "kien/ctrlp.vim"
-NeoBundle "Valloric/YouCompleteMe"
+" NeoBundle "Valloric/YouCompleteMe"
 NeoBundle "Lokaltog/vim-easymotion"
 NeoBundle "edkolev/tmuxline.vim"
 NeoBundle "vim-scripts/a.vim"
-NeoBundle "SirVer/ultisnips"
+" NeoBundle "SirVer/ultisnips"
 NeoBundle "honza/vim-snippets"
+" NeoBundle "oplatek/Conque-Shell"
 
 call neobundle#end()
 
@@ -40,20 +42,8 @@ if !has("vim_starting")
     call neobundle#call_hook("on_source")
 endif
 
-
-" start pathogen if it's here
-" runtime autoload/pathogen.vim
-"if exists("*pathogen#infect")
-"    call pathogen#infect()
-"    " load all help files from plugins. This isn't always necessary but they
-"    " do need to be regenerated for every new machine, and when installing new
-"    " plugins, so just do it on startup
-"    Helptags
-"endif
-
 " vim-powerline also requires UTF-8 encoding, which is probably not a bad idea anyway
 set encoding=utf-8
-
 
 " a tab is 4 spaces by default please
 " also some other formatting options here
@@ -173,7 +163,8 @@ set synmaxcol=2048
 set directory=~/.vim/swap//,.,/var/tmp//,/tmp//
 set backupdir=~/.vim/backup/,.
 
-set guifont=Monaco\ for\ Powerline:h16
+" set guifont=Monaco\ for\ Powerline:h16
+set guifont=Meslo\ LG\ L\ Regular\ for\ Powerline:h14
 
 " Ignore object files when doing autocompletion. Ctrl-P also respects this.
 set wildignore=*.o
@@ -205,6 +196,9 @@ colorscheme koehler
 
 " de-uglify folds
 highlight Folded guibg=Black
+
+" turn on syntax highlighting by default
+syntax on
 
 "}}}
 
@@ -260,9 +254,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_java_javac_config_file_enabled = 1
 
 " hide some annoying warnings I'm getting while working on stuff for CSE 131
-let g:syntastic_quiet_messages = {
-            \ "file": '.*src/.*/parser.java$',
-            \ }
+" let g:syntastic_quiet_messages = {
+"           \ "file": '.*src/.*/parser.java$',
+"           \ }
 
 " easymotion remaps
 map  <Leader> <Plug>(easymotion-prefix)
@@ -276,35 +270,35 @@ nmap s        <Plug>(easymotion-s)
 let g:EasyMotion_smartcase = 1
 
 " ycm config
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_extra_conf_globlist = ['~/src/*', '!~/*']
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_extra_conf_globlist = ['~/src/*', '!~/*']
 
 " make ultisnips and YCM play well together
 " from http://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme
-function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-e>"
+" function! g:UltiSnips_Complete()
+"     call UltiSnips#ExpandSnippet()
+"     if g:ulti_expand_res == 0
+"         if pumvisible()
+"             return "\<C-n>"
+"         else
+"             call UltiSnips#JumpForwards()
+"             if g:ulti_jump_forwards_res == 0
+"                return "\<TAB>"
+"             endif
+"         endif
+"     endif
+"     return ""
+" endfunction
+" 
+" au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+" 
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsListSnippets="<c-e>"
 " this mapping Enter key to <C-y> to chose the current highlight item 
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "}}}
 
