@@ -15,9 +15,10 @@
 export PATH="$HOME/.jenv/bin:$PATH"
 
 # eval jenv init script
-which -s jenv && eval "$(jenv init -)"
+env which -s jenv && eval "$(jenv init -)"
 
 # set up dinghy
-which -s dinghy && eval "$(dinghy env)"
+env which -s dinghy && eval "$(dinghy env)"
 
 export PATH="/usr/local/sbin:$PATH"
+
