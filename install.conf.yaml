@@ -1,0 +1,19 @@
+- defaults:
+    link:
+        relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.vim: dotvim
+    ~/.vimrc: vimrc
+    ~/.tmux.conf: tmux.conf
+    ~/.bash_aliases: bash_aliases
+    ~/.bash_profile: bash_profile
+    ~/.bashrc: bashrc
+    ~/.git.scmbrc: git.scmbrc
+    ~/.scmbrc: scmbrc
+    ~/.zprofile: zprofile
+    ~/.zshrc: zshrc
+
+
