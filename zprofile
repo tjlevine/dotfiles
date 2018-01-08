@@ -6,3 +6,5 @@ env which -s jenv && eval "$(jenv init -)" && export PATH="$HOME/.jenv/bin:$PATH
 
 # set up dinghy
 env which -s dinghy && eval "$(dinghy env)"
+
+export PATH="$HOME/.cargo/bin:$PATH"
