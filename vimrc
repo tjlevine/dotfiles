@@ -39,6 +39,8 @@ if dein#load_state('~/.vim/bundle')
 "   call dein#add('SirVer/ultisnips')
     call dein#add('honza/vim-snippets')
 "   call dein#add('oplatek/Conque-Shell')
+    call dein#add('rodnaph/vim-color-schemes')
+    call dein#add('pangloss/vim-javascript')
 
     " Required:
     call dein#end()
@@ -210,6 +212,9 @@ colorscheme koehler
 
 " de-uglify folds
 highlight Folded guibg=Black
+
+" allow mouse scrolling (with the trackpad only of course)
+set mouse+=a
 
 "}}}
 
