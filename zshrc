@@ -96,4 +96,5 @@ fi
 # export PATH="$PATH:$HOME/bin"
 
 [ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm" && source "/usr/local/opt/nvm/nvm.sh"
-[ -s "/Users/f0rks/.scm_breeze/scm_breeze.sh" ] && source "/Users/f0rks/.scm_breeze/scm_breeze.sh"
+[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
+[ -s "$HOME/.gnupg/init-gpg-agent.sh" ] && source "$HOME/.gnupg/init-gpg-agent.sh"

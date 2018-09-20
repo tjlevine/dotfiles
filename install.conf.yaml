@@ -15,5 +15,6 @@
     ~/.scmbrc: scmbrc
     ~/.zprofile: zprofile
     ~/.zshrc: zshrc
+    ~/.gnupg/init-gpg-agent.sh: init-gpg-agent.sh
 
 
