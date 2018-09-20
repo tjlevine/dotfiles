@@ -41,6 +41,7 @@ if dein#load_state('~/.vim/bundle')
 "   call dein#add('oplatek/Conque-Shell')
     call dein#add('rodnaph/vim-color-schemes')
     call dein#add('pangloss/vim-javascript')
+    call dein#add('leafgarland/typescript-vim')
 
     " Required:
     call dein#end()
