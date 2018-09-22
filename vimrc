@@ -42,6 +42,7 @@ if dein#load_state('~/.vim/bundle')
     call dein#add('rodnaph/vim-color-schemes')
     call dein#add('pangloss/vim-javascript')
     call dein#add('leafgarland/typescript-vim')
+    call dein#add('jacoborus/tender.vim')
 
     " Required:
     call dein#end()
@@ -58,6 +59,10 @@ if dein#check_install()
 endif
 
 "End dein Scripts-------------------------
+
+if (has("termguicolors"))
+    set termguicolors
+endif
 
 " vim-powerline also requires UTF-8 encoding, which is probably not a bad idea anyway
 set encoding=utf-8
@@ -209,7 +214,7 @@ else
 endif
 
 " this is a nice colorscheme
-colorscheme koehler
+colorscheme tender
 
 " de-uglify folds
 highlight Folded guibg=Black
@@ -233,6 +238,7 @@ let mapleader = ","
 "{{{
 " Disable insertion of placeholders when using lh-brackets
 " let b:usemarks=0
+let g:airline_theme = 'tender'
 
 " let airline use powerline fonts
 let g:airline_powerline_fonts = 1
