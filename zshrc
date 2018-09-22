@@ -94,6 +94,16 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # export PATH="$PATH:$HOME/bin"
+#
+BULLETTRAIN_PROMPT_ORDER=(
+    time
+    status
+    custom
+    context
+    dir
+    git
+    cmd_exec_time
+)
 
 [ -d "$HOME/.nvm" ] && export NVM_DIR="$HOME/.nvm" && source "/usr/local/opt/nvm/nvm.sh"
 [ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
